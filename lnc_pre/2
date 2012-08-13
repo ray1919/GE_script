@@ -1,0 +1,72 @@
+#!/usr/bin/perl -w
+
+
+
+$tag="Negative";
+$column = 10;
+
+
+##################################################
+my $kkk = "A";
+
+@files=glob "*_$tag";
+$count = @files;
+
+
+print $count,"\n";
+
+open OUTPUT,">$tag" or die "error(input):$!";
+
+$i = 0;
+foreach $file(@files)
+{
+open INPUT,"$file" or die "error(input):$!";
+$line = <INPUT>;
+$j=1;
+while(<INPUT>)
+{
+@terms = split(/\t/,$_);
+$data[$i][$j] = $terms[10];
+$j++;
+}
+$i++;
+close INPUT;
+print "successful read a file!\n";
+}
+
+open INPUT,"$files[0]" or die "error(input):$!";
+        print "open the $files[0]\n";
+        $line = <INPUT>;
+        @terms=split(/\t/,$line);
+       for($i=0;$i<($column - 1) ;$i++)
+            {
+              print OUTPUT "$terms[$i]\t";
+              print "$terms[$i]\n";
+             }
+       for($i=0;$i<$count;$i++)
+            {
+              print OUTPUT "$files[$i]\t";
+            }
+              print OUTPUT "\n";
+print "the first line has been output!\n";
+
+$j=1;
+while(<INPUT>)
+{
+        @terms=split(/\t/,$_);
+        for($i=0; $i < ($column - 1) ;$i++)
+            {
+              print OUTPUT "$terms[$i]\t";
+             }
+
+for($i=0;$i<$count;$i++)
+{
+print OUTPUT "$data[$i][$j]\t";
+}
+print OUTPUT "\n";
+$j++;
+}
+
+
+close OUTPUT;
+print "successful get the sublist!\n";
